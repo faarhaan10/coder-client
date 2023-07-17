@@ -6,6 +6,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import Root from './Layout/Root'
 import NotFound from './Components/Shared/NotFound'
 import Home from './Components/Home/Home'
+import Login from './Components/Authentication/Login'
+import Register from './Components/Authentication/Register'
 
 
 const routes = createBrowserRouter([{
@@ -16,7 +18,23 @@ const routes = createBrowserRouter([{
     {
       path: '/',
       element: <Home />
-    }
+    },
+    {
+      path: '/about',
+      element: <Home />
+    },
+    {
+      path: '/policy',
+      element: <Home />
+    },
+    {
+      path: '/login',
+      element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
+    },
   ]
 }])
 

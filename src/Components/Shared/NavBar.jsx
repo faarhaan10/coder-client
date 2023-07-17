@@ -1,0 +1,127 @@
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import SearchIcon from '@mui/icons-material/Search';
+import { InputAdornment, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+function NavBar() {
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const user = true;
+
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
+    return (
+        <AppBar position="static">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        sx={{
+                            mr: 2,
+                            display: 'flex',
+                            fontWeight: 800,
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        P.H. Forum
+                    </Typography>
+
+
+                    <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                        <Link to='/about' style={{ textDecoration: 'none' }}>
+                            <Button
+                                sx={{ my: 2, color: 'white', display: 'block', }}
+                            >
+                                About
+                            </Button>
+                        </Link>
+                        <Link to='/policy' style={{ textDecoration: 'none' }}>
+                            <Button
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                Terms & Conditions
+                            </Button>
+                        </Link>
+                    </Box>
+                    <TextField
+                        id="input-with-icon-textfield"
+                        placeholder='Search here'
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start" >
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                        variant="outlined"
+                    />
+
+                    {user ? <Box sx={{ flexGrow: 0 }}>
+                    <Link to='/login' style={{ textDecoration: 'none' }}>
+                            <Button
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                    </Box>
+                        :
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting) => (
+                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center">{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>}
+                </Toolbar>
+            </Container>
+        </AppBar>
+    );
+}
+export default NavBar;

@@ -1,11 +1,13 @@
-import React from 'react';
-import Home from '../Components/Home/Home';
+import React from 'react'; 
+import { Outlet } from 'react-router';
+import NavBar from '../Components/Shared/Navbar';
 
 const Root = () => {
     return (
-        <div>
-            <Home/>
-        </div>
+        < >
+            <NavBar />
+            <Outlet/>
+        </>
     );
 };
 
