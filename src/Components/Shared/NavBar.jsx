@@ -13,20 +13,19 @@ import MenuItem from '@mui/material/MenuItem';
 import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Dashboard'];
 
 function NavBar() {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const user = true;
+    const { user,logOut } = React.useContext(AuthContext);
 
 
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-
-
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
@@ -68,7 +67,7 @@ function NavBar() {
                         </Link>
                     </Box>
                     <TextField
-                        id="input-with-icon-textfield"
+                        size='small'
                         placeholder='Search here'
                         InputProps={{
                             startAdornment: (
@@ -80,7 +79,7 @@ function NavBar() {
                         variant="outlined"
                     />
 
-                    {user ? <Box sx={{ flexGrow: 0 }}>
+                    {!user?.email ? <Box sx={{ flexGrow: 0 }}>
                     <Link to='/login' style={{ textDecoration: 'none' }}>
                             <Button
                                 sx={{ my: 2, color: 'white', display: 'block' }}
@@ -93,7 +92,7 @@ function NavBar() {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt={user.name} src={user.image} />
                             </IconButton>
                         </Tooltip>
                         <Menu
@@ -117,6 +116,9 @@ function NavBar() {
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
+                                <MenuItem  onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center" onClick={logOut}>logout</Typography>
+                                </MenuItem>
                         </Menu>
                     </Box>}
                 </Toolbar>
