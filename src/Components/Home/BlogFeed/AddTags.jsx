@@ -177,13 +177,12 @@ export default function AddTags({setTags}) {
     return (
         <>
             <Root>
-                <div {...getRootProps()}>
-                    <InputLabel sx={{ width: '100%' }} >Tags:</InputLabel>
-                    <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} >
+                <div {...getRootProps()}> 
+                    <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} sx={{py:.5}}>
                         {value.map((option, index) => (
                             <StyledTag label={option} {...getTagProps({ index })} />
                         ))}
-                        <input {...getInputProps()} />
+                        <input {...getInputProps()} placeholder='Add Tags'/>
                     </InputWrapper>
                 </div>
                 {groupedOptions.length > 0 ? (

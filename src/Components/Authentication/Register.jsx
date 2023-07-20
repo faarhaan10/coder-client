@@ -1,4 +1,4 @@
-import { Box, Paper, TextField, Typography, Button, InputLabel, Select, MenuItem, FormControl, Input } from '@mui/material';
+import { Box, Paper, TextField, Typography, Button, InputLabel, Select, MenuItem, FormControl, Input, Stack } from '@mui/material';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
@@ -7,12 +7,12 @@ import { AuthContext } from '../../context/AuthProvider';
 
 const Register = () => {
     const [batch, setBatch] = React.useState(8);
-    const [image, setImage] = React.useState(''); 
+    const [image, setImage] = React.useState('');
     const { registerUser, setToken } = useContext(AuthContext)
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate()
 
-     
+
     const onSubmit = data => {
         const doc = {
             ...data,
@@ -79,16 +79,16 @@ const Register = () => {
                         />
                         <TextField style={{ width: '100%' }} label="Password" type='password' variant="outlined" size='small' required
                             {...register("password", { required: true })}
-                        />
-                        <ImageUploader setUrl={setImage} fullWidth={true} />
+                        /> 
+                            <ImageUploader setUrl={setImage} fullWidth={true} />
                         <Link to='/login'>
                             <Typography variant="subtitle2" gutterBottom>
                                 Already have an account?
                             </Typography>
                         </Link>
-                        {image ?<Button style={{ width: '100%' }} variant="contained" type='submit'>Register</Button>
+                        {image ? <Button style={{ width: '100%' }} variant="contained" type='submit'>Register</Button>
                             :
-                        <Button disabled style={{ width: '100%' }} variant="contained" type='submit'>Register</Button>}
+                            <Button disabled style={{ width: '100%' }} variant="contained" type='submit'>Register</Button>}
                     </Box>
                 </Paper>
 

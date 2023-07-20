@@ -5,7 +5,7 @@ const AddCategory = ({setCategory}) => {
     const category = ["assignment", "github", "quiz", "support session", "other"];
  
     return (
-        <FormControl as={Box} sx={{ }} required>
+        <FormControl  as={Box} sx={{width: '8rem' , }} required>
                             <InputLabel sx={{ width: '100%' }} id="demo-simple-select-label">Category</InputLabel>
                             <Select onChange={(e)=>setCategory(e.target.value)}
                                 defaultValue={9}

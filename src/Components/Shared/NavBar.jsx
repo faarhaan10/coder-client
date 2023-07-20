@@ -91,7 +91,7 @@ function NavBar() {
                         :
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
                                 <Avatar alt={user.name} src={user.image} />
                             </IconButton>
                         </Tooltip>
@@ -117,7 +117,7 @@ function NavBar() {
                                 </MenuItem>
                             ))}
                                 <MenuItem  onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" onClick={logOut}>logout</Typography>
+                                    <Typography textAlign="center" onClick={logOut}>Logout</Typography>
                                 </MenuItem>
                         </Menu>
                     </Box>}

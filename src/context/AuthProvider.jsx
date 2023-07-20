@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
     }, [token])
 
 
-    const allContext = { user, login, login, registerUser, logOut,setToken };
+    const allContext = { url,user, login, login, registerUser, logOut,setToken };
     return (
         <AuthContext.Provider value={allContext}>{children}</AuthContext.Provider>
     );

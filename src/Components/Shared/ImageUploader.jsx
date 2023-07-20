@@ -1,16 +1,17 @@
-import { Button, TextField } from '@mui/material';
+import { Box, Button, Input, InputLabel, TextField } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 
-const ImageUploader = ({ setUrl,fullWidth }) => {
-    const [image, setImage] = useState(null); 
+const ImageUploader = ({ setUrl, fullWidth }) => {
+    const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(true);
-     
+
     const handleUpload = (event) => {
         setImage(event.target.files[0]);
     };
 
-    useEffect(() => { 
+    useEffect(() => {
         if (image) {
             setLoading(true);
             let payload = new FormData()
@@ -23,16 +24,34 @@ const ImageUploader = ({ setUrl,fullWidth }) => {
                 })
                 .catch((error) => {
                     console.log('error', error)
-                }) 
-            
-            }
-            setLoading(false)
+                })
+
+        }
+        setLoading(false)
     }, [image])
     return (
         < >
-        <TextField style={{width:fullWidth?'100%':'50%'}} type='file' variant="outlined" size='small' onChange={handleUpload}  
-            />
-            {loading&&  <p>uploading...</p>}
+            <Box sx={{my:0,display:'flex'}}>
+                {fullWidth ? <InputLabel htmlFor="input-with-icon-adornment"
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        border: '1px solid #c4c4c4',
+                        py: 1,
+                        px:5,
+                        width: '100%',
+                        borderRadius:'5px'
+                    }}>
+                    Upload photo <InsertPhotoOutlinedIcon />
+                </InputLabel>
+                    :
+                <InputLabel htmlFor="input-with-icon-adornment">
+                    <InsertPhotoOutlinedIcon />
+                </InputLabel>}
+                <Input style={{ display: 'none' }} onChange={handleUpload}
+                    id="input-with-icon-adornment" type='file' variant='outlined' />
+            </Box>
         </>
     );
 };

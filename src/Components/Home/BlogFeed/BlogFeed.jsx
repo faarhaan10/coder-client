@@ -1,11 +1,15 @@
 import { Box } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import CreatePost from './CreatePost';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const BlogFeed = () => {
+    const { user } = useContext(AuthContext);
     return (
         <>
-            <CreatePost/>
+            {
+                user?.email && <CreatePost user={user} />
+            }
         </>
     );
 };
