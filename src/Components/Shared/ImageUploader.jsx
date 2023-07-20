@@ -20,7 +20,7 @@ const ImageUploader = ({ setUrl, fullWidth }) => {
             axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_SECRET_KEY}`, payload)
                 .then((response) => {
                     setLoading(false)
-                    setUrl(response.data.data.image.url)
+                    setUrl(response.data.data.image.url) 
                 })
                 .catch((error) => {
                     console.log('error', error)

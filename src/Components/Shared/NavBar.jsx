@@ -117,7 +117,7 @@ function NavBar() {
                                 </MenuItem>
                             ))}
                                 <MenuItem  onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" onClick={logOut}>Logout</Typography>
+                                    <Typography textAlign="center" onClick={()=>logOut()}>Logout</Typography>
                                 </MenuItem>
                         </Menu>
                     </Box>}

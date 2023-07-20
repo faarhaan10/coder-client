@@ -1,31 +1,29 @@
 import { Avatar, Badge, Box, Button, Paper, Stack, TextField } from '@mui/material';
 import React, { useContext, useState } from 'react';
-import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
-import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
-import TextAreaField from './TextAreaField';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'; 
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined'; 
 import AddTags from './AddTags';
 import AddCategory from './AddCategory';
-import ImageUploader from '../../Shared/ImageUploader';
+import ImageUploader from '../../../Shared/ImageUploader';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
-import { AuthContext } from '../../../context/AuthProvider';
+import { AuthContext } from '../../../../context/AuthProvider';
 
 
 
-const CreatePost = () => {
+const CreatePost = ({blogRefetch}) => {
     const [showOption, setShowOption] = useState(false);
     const [image, setImage] = useState('');
     const [postBody, setPostBody] = useState('');
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState([]);
     const { user, url } = useContext(AuthContext)
-    console.log(tags);
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!image || !postBody || !category || !tags) {
-            toast.error('Please fillup all fields');
+        if ( !category || !tags) {
+            toast.error('Please add some tags & category');
             return
         }
         const doc = {
@@ -40,6 +38,7 @@ const CreatePost = () => {
             .then(res => {
                 if (res.data.insertedId) {
                     toast.success("Post created!");
+                    blogRefetch()
                     setImage('')
                     setPostBody('')
                     setCategory('')
@@ -53,9 +52,15 @@ const CreatePost = () => {
         <Paper sx={{ p: 2 }}>
             <form onSubmit={handleSubmit}>
                 <Stack direction='row' spacing={2} sx={{ mb: 1 }} >
-                    <Avatar alt={user.name} src={user.image} />
-                    {/* <TextField variant="outlined" size='small' fullWidth style={{ borderRadius: 50 }} placeholder='Share or ask something to everyone' /> */}
-                    <TextAreaField setPostBody={setPostBody} postBody={postBody} />
+                    <Avatar alt={user.name} src={user.image} /> 
+                    <TextField 
+                        placeholder="Whats on your mind?" 
+                        fullWidth
+                        multiline
+                        minRows={3}
+                        onChange={(e) => setPostBody(e.target.value)}
+                        
+                    />
                 </Stack>
                 {
                     image && <Box>
