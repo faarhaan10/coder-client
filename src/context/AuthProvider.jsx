@@ -30,8 +30,7 @@ const AuthProvider = ({ children }) => {
  
 
     useEffect(() => { 
-        // const unSubscribe = () => {
-            console.log(36,token);
+        // const unSubscribe = () => { 
             axios.get(`${url}/users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -41,6 +40,7 @@ const AuthProvider = ({ children }) => {
                     setUser(response.data);
                 })
                 .catch(error => {
+                    console.log(error);
                     throw new Error('Failed to retrieve user details');
                 });
                 setLoading(false)

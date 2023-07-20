@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'; 
 
-const ImageUploader = ({ setUrl }) => {
+const ImageUploader = ({ setUrl,fullWidth }) => {
     const [image, setImage] = useState(null); 
     const [loading, setLoading] = useState(true);
      
@@ -30,7 +30,7 @@ const ImageUploader = ({ setUrl }) => {
     }, [image])
     return (
         < >
-        <TextField style={{width:'100%'}} type='file' variant="outlined" size='small' onChange={handleUpload}
+        <TextField style={{width:fullWidth?'100%':'50%'}} type='file' variant="outlined" size='small' onChange={handleUpload}  
             />
             {loading&&  <p>uploading...</p>}
         </>

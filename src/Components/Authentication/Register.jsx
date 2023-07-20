@@ -80,7 +80,7 @@ const Register = () => {
                         <TextField style={{ width: '100%' }} label="Password" type='password' variant="outlined" size='small' required
                             {...register("password", { required: true })}
                         />
-                        <ImageUploader setUrl={setImage} />
+                        <ImageUploader setUrl={setImage} fullWidth={true} />
                         <Link to='/login'>
                             <Typography variant="subtitle2" gutterBottom>
                                 Already have an account?
