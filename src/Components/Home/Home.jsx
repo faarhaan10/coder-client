@@ -1,19 +1,19 @@
 import { Box, Container, Grid, Input, InputLabel, Paper, TextField } from '@mui/material';
 import React from 'react'; 
-import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
-import Blogs from './Blogs/Blogs';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined'; 
 import BlogFeed from './BlogFeed/AddPost/BlogFeed';
 
 const Home = () => {
     return (
         <Container maxWidth="lg">
-            <Grid container spacing={2} sx={{ my: 1 }}>
-                <Grid item xs={8}>
-                    <Box sx={{ px: 2 }}>
+            <Grid container spacing={2} sx={{ pt: 9 }}>
+                <Grid item xs={8} sx={{}}>
+                    <Box sx={{ px: 2  }}>
                         <BlogFeed /> 
                     </Box>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={4} sx={{}} >
+                    <Box sx={{ position: 'fixed',width:'24rem'}}>
                     <Paper sx={{ p: 2 }}>
                         <h2>second half</h2>
                         <input type="file" style={{
@@ -32,6 +32,7 @@ const Home = () => {
                                 id="input-with-icon-adornment" type='file' variant='outlined' />
                         </Box>
                     </Paper>
+                    </Box>
                 </Grid>
             </Grid>
         </Container>

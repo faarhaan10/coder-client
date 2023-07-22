@@ -4,8 +4,7 @@ import useAutocomplete from '@mui/base/useAutocomplete';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { styled } from '@mui/material/styles';
-import { autocompleteClasses } from '@mui/material/Autocomplete';
-import { InputLabel, Typography } from '@mui/material';
+import { autocompleteClasses } from '@mui/material/Autocomplete'; 
 
 const Root = styled('div')(
     ({ theme }) => `
@@ -23,7 +22,7 @@ const Label = styled('label')`
 
 const InputWrapper = styled('div')(
     ({ theme }) => `
-  width: 300px;
+  width: 100%;
   border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
   background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
   border-radius: 4px;
@@ -154,7 +153,7 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function AddTags({setTags}) {
+export default function AddTags({setTags,label}) {
     const {
         getRootProps,
         getInputProps,
@@ -176,13 +175,13 @@ export default function AddTags({setTags}) {
 
     return (
         <>
-            <Root>
+            <Root sx={{width:'100%'}}>
                 <div {...getRootProps()}> 
                     <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''} sx={{py:.5}}>
                         {value.map((option, index) => (
                             <StyledTag label={option} {...getTagProps({ index })} />
                         ))}
-                        <input {...getInputProps()} placeholder='Add Tags'/>
+              <input {...getInputProps()} placeholder={label?label:'Add Tags' } />
                     </InputWrapper>
                 </div>
                 {groupedOptions.length > 0 ? (

@@ -31,7 +31,7 @@ function NavBar() {
     };
 
     return (
-        <AppBar position="static"  sx={{px:2}}>
+        <AppBar position="static"  sx={{px:2,pt:1,position:'fixed',zIndex:999}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography

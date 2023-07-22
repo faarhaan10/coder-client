@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
     const { login,setToken } = useContext(AuthContext);
@@ -10,11 +11,14 @@ const Login = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         login(data)
-            .then(res => { 
-                if (res.data.token) {
+            .then(res => {  
+                if (res.data.token && res.data.success) {
                     localStorage.setItem('token', res.data.token);
                     setToken(res.data.token);
                     navigate('/')
+                }
+                else {
+                    toast.error(res.data.message)
                 }
 
         })

@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState('');
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [loading, setLoading] = useState(true);
-    
+
     const url = 'http://localhost:3000/api'
 
     //login
@@ -26,32 +26,36 @@ const AuthProvider = ({ children }) => {
         setUser({});
         setToken(null);
         localStorage.removeItem('token')
+        localStorage.removeItem('batch')
     };
 
- 
 
-    useEffect(() => { 
+
+    useEffect(() => {
         // const unSubscribe = () => { 
-            axios.get(`${url}/users`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+        axios.get(`${url}/users`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                setUser(response.data);
+                localStorage.setItem('batch',response.data.batch);
             })
-                .then(response => {
-                    setUser(response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                    throw new Error('Failed to retrieve user details');
-                });
+            .catch(error => {
+                logOut();
                 setLoading(false)
-        // }
+                // throw new Error('Failed to retrieve user details');
+            })
+            .finally(() => setLoading(false))
+
+    // }
 
         // return () =>unSubscribe();
     }, [token])
 
 
-    const allContext = { url,user, login, login, registerUser, logOut,setToken };
+    const allContext = { url, user, login, loading, registerUser, logOut, setToken };
     return (
         <AuthContext.Provider value={allContext}>{children}</AuthContext.Provider>
     );

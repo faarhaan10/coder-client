@@ -2,6 +2,7 @@ import { Box, Button, Input, InputLabel, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
+import { lightGreen } from '@mui/material/colors';
 
 const ImageUploader = ({ setUrl, fullWidth }) => {
     const [image, setImage] = useState(null);
@@ -21,6 +22,7 @@ const ImageUploader = ({ setUrl, fullWidth }) => {
                 .then((response) => {
                     setLoading(false)
                     setUrl(response.data.data.image.url) 
+                    console.log(response.data.data.image.url) 
                 })
                 .catch((error) => {
                     console.log('error', error)
