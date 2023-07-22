@@ -8,7 +8,6 @@ const useAxios = (method, route, doc = {},reload=null) => {
   const [error, setError] = useState(null);
   const accessToken = localStorage.getItem('token');
 
-console.log(route);
   const config = {
     url: `http://localhost:3000/api/${route}`,
     method,

@@ -34,6 +34,7 @@ function NavBar() {
         <AppBar position="static"  sx={{px:2,pt:1,position:'fixed',zIndex:999}}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+            <Link to='/' style={{ textDecoration: 'none',color:'white' }}>
                     <Typography
                         variant="h6"
                         noWrap
@@ -47,8 +48,9 @@ function NavBar() {
                         }}
                     >
                         P.H. Forum
+                        
                     </Typography>
-
+                    </Link>
 
                     <Box sx={{ flexGrow: 1, display: 'flex' }}>
                         <Link to='/about' style={{ textDecoration: 'none' }}>

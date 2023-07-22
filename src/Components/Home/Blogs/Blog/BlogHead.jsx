@@ -6,13 +6,14 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import useDateNTime from '../../../../hooks/useDateNTime';
 import { useContext } from 'react';
-import { AuthContext } from '../../../../context/AuthProvider';
+import { AuthContext } from '../../../../context/AuthProvider'; 
+import UpdateModal from './UpdateModal';
 
 
 
 
 
-const BlogHead = ({ blog }) => {
+const BlogHead = ({ blog ,blogRefetch }) => {
     const { user } = useContext(AuthContext)
     const userType = blog?.adminPost ? 'admin' : blog.authorId === user._id ? 'author' : null;
     const { timeAgo, formattedDate } = useDateNTime(blog.timestamp)
@@ -39,7 +40,7 @@ const BlogHead = ({ blog }) => {
                 </Stack>
                 <Stack direction='row'>
                     <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                        <Chip label={blog?.status} color="primary" size="small" variant="outlined" sx={{ py: .3 }} />
+                        <UpdateModal blog={blog} blogRefetch={ blogRefetch}/>
                         <Button variant='text' size='small'><BookmarkBorderOutlinedIcon /></Button>
                         <Button variant='text' size='small'><MoreHorizIcon /></Button>
                     </Stack>

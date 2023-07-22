@@ -7,7 +7,7 @@ import Comments from '../Comments/Comments';
 import useAxios from '../../../../hooks/useAxios';
 import Likes from '../Comments/Likes';
 
-const BlogEnd = ({ blog }) => {
+const BlogEnd = ({ blog ,blogRefetch}) => {
     const { user } = useContext(AuthContext);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState(blog.comments);

@@ -11,6 +11,7 @@ const Blog = ({blog,blogRefetch}) => {
            {/* head  */}
             <BlogHead
                 blog={blog}
+                blogRefetch={ blogRefetch}
             />
 
             {/* body  */}
