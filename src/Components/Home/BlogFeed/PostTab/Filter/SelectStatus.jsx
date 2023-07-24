@@ -24,7 +24,7 @@ const SelectStatus = ({ handleQuery,setFilter,handleClose}) => {
                 onClose={handleClose}
             >  
                 {
-                    ["inprogress", "investigate", "resolved", "unresolved", "rejected"].map(item => <MenuItem
+                    ["inprogress", "investigate", "resolved", "unresolved", "rejected","testing"].map(item => <MenuItem
                         key={item}
                         onClick={() => { handleQuery(`status=${item}`); handleClose(); setFilter('status')}}
                     >

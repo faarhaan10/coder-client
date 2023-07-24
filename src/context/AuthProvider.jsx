@@ -41,7 +41,7 @@ const AuthProvider = ({ children }) => {
         })
             .then(response => {
                 setUser(response.data);
-                localStorage.setItem('batch',response.data.batch);
+                localStorage.setItem('batch',response.data.batch||'');
             })
             .catch(error => {
                 logOut();

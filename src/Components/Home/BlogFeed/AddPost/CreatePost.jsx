@@ -23,6 +23,7 @@ const CreatePost = ({ blogRefetch }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
         if (!category || !tags) {
             toast.error('Please add some tags & category');
             return
@@ -38,7 +39,7 @@ const CreatePost = ({ blogRefetch }) => {
         if (user.isAdmin) {
             doc.adminPost = true;
         }
-console.log(doc);
+
         axios.post(`${url}/post`, doc)
             .then(res => {
                 if (res.data.insertedId) {
@@ -61,6 +62,7 @@ console.log(doc);
                     <TextField
                         placeholder="Whats on your mind?"
                         fullWidth
+                        defaultValue={postBody}
                         multiline
                         minRows={3}
                         onChange={(e) => setPostBody(e.target.value)}

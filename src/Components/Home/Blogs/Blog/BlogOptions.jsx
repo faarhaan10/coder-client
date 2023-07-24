@@ -6,13 +6,13 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import UpdateBlogModal from './UpdateBlogModal';
 import axios from 'axios';
 import { AuthContext } from '../../../../context/AuthProvider';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast'; 
 
 
 
 export default function BlogOptions({ blog, blogRefetch }) {
     const { user, url } = React.useContext(AuthContext)
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null); 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -48,8 +48,8 @@ export default function BlogOptions({ blog, blogRefetch }) {
             .then(res => {
                 if (res.data.success) {
                     toast.success('Resolved')
-                    blogRefetch();
-                    handleClose()
+                    blogRefetch(); 
+                    handleClose();
                 }
             })
     }
@@ -86,21 +86,21 @@ export default function BlogOptions({ blog, blogRefetch }) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {user.email && <>
-                    {user.isAdmin && <>
-                        <UpdateBlogModal blogRefetch={blogRefetch} blog={blog} />
+                {user.email && <div>
+                    {user.isAdmin && <div>
+                        <UpdateBlogModal handleClose={ handleClose} blogRefetch={blogRefetch} blog={blog} />
                         <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                    </>
+                    </div>
                     }
 
                     {
-                        user._id == blog.authorId && <>
+                        user._id == blog.authorId && <div>
                             <MenuItem onClick={handleOffComment}>Turn off comment</MenuItem>
-                            <MenuItem onClick={handleStatusResolved}>Mark as resolved</MenuItem>
-                        </>
+                            {blog.status !== 'resolved' && <MenuItem onClick={handleStatusResolved}>Mark as resolved</MenuItem>}
+                        </div>
                     }
-                </>}
-                <MenuItem onClick={handleCopy}>Copy the link</MenuItem>
+                </div>}
+                <MenuItem onClick={handleCopy}>Copy the link</MenuItem> 
             </Menu>
         </div>
     );

@@ -22,7 +22,6 @@ const BlogFeed = () => {
 
     const { data: blogs = [], loading: blogLoading, error, refetch } = useAxios('get', user?.isAdmin ? route2 : route1, value);
 
-    console.log(blogs);
 
     const handleChange = (e, newValue) => {
         setFilter('')

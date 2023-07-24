@@ -34,23 +34,23 @@ function NavBar() {
         <AppBar position="static" sx={{ px: 2, position: 'fixed', zIndex: 999 }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="a"
-                            sx={{
-                                mr: 2,
-                                display: 'flex',
-                                fontWeight: 800,
-                                color: 'inherit',
-                                textDecoration: 'none',
-                            }}
-                        >
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="span"
+                        sx={{
+                            mr: 2,
+                            display: 'flex',
+                            fontWeight: 800,
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
+                        <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
                             P.H. Forum
 
-                        </Typography>
-                    </Link>
+                        </Link>
+                    </Typography>
 
                     <Box sx={{ flexGrow: 1, display: 'flex' }}>
                         <Link to='/about' style={{ textDecoration: 'none' }}>

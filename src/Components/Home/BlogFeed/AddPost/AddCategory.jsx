@@ -2,7 +2,7 @@ import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
 
 const AddCategory = ({setCategory}) => {
-    const category = ["assignment", "github", "quiz", "support session","module", "other"];
+    const category = ["assignment", "github", "quiz", "support-session","module", "other"];
  
     return (
         <FormControl  as={Box} sx={{width: '8rem' , }} required>

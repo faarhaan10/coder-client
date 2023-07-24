@@ -7,6 +7,7 @@ import { Chip, FormControl, InputLabel, MenuItem, Select, Stack } from '@mui/mat
 import axios from 'axios';
 import { AuthContext } from '../../../../context/AuthProvider';
 import { toast } from 'react-hot-toast';
+import useProgress from '../../../../hooks/useProgress';
 
 
 const style = {
@@ -22,15 +23,14 @@ const style = {
 };
 
 
-const UpdateBlogModal = ({ blog ,blogRefetch}) => {
+const UpdateBlogModal = ({ blog ,blogRefetch,handleClose}) => {
     const{user,url}=React.useContext(AuthContext)
-    const [status, setStatus] = React.useState('new')
-    const [priority, setPriority] = React.useState('high')
-
+    const [status, setStatus] = React.useState(blog.status)
+    const [priority, setPriority] = React.useState(blog.priority)
+const {progressRefetch}= useProgress()
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
+    // const handleClose = () => setOpen(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -42,7 +42,8 @@ const UpdateBlogModal = ({ blog ,blogRefetch}) => {
             .then(res => {
                 if (res.data.success) {
                     toast.success(res.data.message);
-                    blogRefetch();
+                    blogRefetch(); 
+                    progressRefetch();
                     handleClose();
             };
         })
@@ -73,7 +74,7 @@ const UpdateBlogModal = ({ blog ,blogRefetch}) => {
                         >
 
                             {
-                                ["new","inprogress", "investigate", "resolved", "unresolved", "rejected"].map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                ["new","inprogress", "investigate", "resolved", "unresolved", "rejected","testing"].map(item => <MenuItem key={'stutus'+item} value={item}>{item}</MenuItem>)
                             }
                         </Select>
                     </FormControl>
@@ -90,7 +91,7 @@ const UpdateBlogModal = ({ blog ,blogRefetch}) => {
                         >
 
                             {
-                                ["high", "medium", "low"].map(item => <MenuItem value={item}>{item}</MenuItem>)
+                                ["high", "medium", "low"].map(item => <MenuItem key={'status'+item} value={item}>{item}</MenuItem>)
                             }
                         </Select>
                     </FormControl>
