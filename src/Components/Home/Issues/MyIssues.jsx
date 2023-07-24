@@ -1,7 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../../context/AuthProvider';
-import useProgressCount from '../../../hooks/useProgressCount';
+import { AuthContext } from '../../../context/AuthProvider'; 
 import useProgress from '../../../hooks/useProgress';
 
 const MyIssues = () => {

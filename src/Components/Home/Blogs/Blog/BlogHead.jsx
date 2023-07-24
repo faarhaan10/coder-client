@@ -12,7 +12,7 @@ import BlogOptions from './BlogOptions';
 
 
 
-const BlogHead = ({ blog, blogRefetch }) => {
+const BlogHead = ({ blog }) => {
     const { user } = useContext(AuthContext)
     const userType = blog?.adminPost ? 'admin' : blog.authorId === user._id ? 'author' : null;
     const { timeAgo, formattedDate } = useDateNTime(blog.timestamp)
@@ -47,7 +47,7 @@ const BlogHead = ({ blog, blogRefetch }) => {
                         style={{fontSize:10,border:'1px solid #1976d2',borderRadius:10,padding:'1px 3px' ,color:'#1976d2'}}
                         >{blog?.status}</span>
                         <Button variant='text' size='small'><BookmarkBorderOutlinedIcon /></Button>
-                        <BlogOptions blog={blog} blogRefetch={ blogRefetch} />
+                        <BlogOptions blog={blog}  />
                     </Stack>
                 </Stack>
             </Stack>

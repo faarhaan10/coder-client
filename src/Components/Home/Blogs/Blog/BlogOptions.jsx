@@ -7,11 +7,15 @@ import UpdateBlogModal from './UpdateBlogModal';
 import axios from 'axios';
 import { AuthContext } from '../../../../context/AuthProvider';
 import { toast } from 'react-hot-toast'; 
+import useBlogs from '../../../../hooks/useBlogs';
 
 
 
-export default function BlogOptions({ blog, blogRefetch }) {
+export default function BlogOptions({ blog }) {
     const { user, url } = React.useContext(AuthContext)
+const {blogsRefetch} =useBlogs()
+
+
     const [anchorEl, setAnchorEl] = React.useState(null); 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -28,7 +32,7 @@ export default function BlogOptions({ blog, blogRefetch }) {
                 console.log(res);
                 if (res.data.success) {
                     toast.success('Post deleted')
-                    blogRefetch();
+                    blogsRefetch();
                     handleClose()
                 }
             })
@@ -38,7 +42,7 @@ export default function BlogOptions({ blog, blogRefetch }) {
             .then(res => {
                 if (res.data.success) {
                     toast.success('Comment off')
-                    blogRefetch();
+                    blogsRefetch();
                     handleClose()
                 }
             })
@@ -48,7 +52,7 @@ export default function BlogOptions({ blog, blogRefetch }) {
             .then(res => {
                 if (res.data.success) {
                     toast.success('Resolved')
-                    blogRefetch(); 
+                    blogsRefetch(); 
                     handleClose();
                 }
             })
@@ -88,7 +92,7 @@ export default function BlogOptions({ blog, blogRefetch }) {
             >
                 {user.email && <div>
                     {user.isAdmin && <div>
-                        <UpdateBlogModal handleClose={ handleClose} blogRefetch={blogRefetch} blog={blog} />
+                        <UpdateBlogModal handleClose={ handleClose} blogRefetch={blogsRefetch} blog={blog} />
                         <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     </div>
                     }

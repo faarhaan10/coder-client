@@ -5,9 +5,12 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Box, Button, Stack } from '@mui/material';
 import FilterMenu from './Filter/FilterMenu';
 import { AuthContext } from '../../../../context/AuthProvider';
+import useBlogs from '../../../../hooks/useBlogs';
 
 const PostTab = ({ handleChange, value, handleQuery ,handleFilter}) => {
-    const { user } = React.useContext(AuthContext)
+    const { user } = React.useContext(AuthContext);
+    const { blogs } = useBlogs();
+    const notReply = blogs.filter(blog => !blog.adminReplied && !blog.adminPost);
 
     return (
         <>
@@ -22,7 +25,7 @@ const PostTab = ({ handleChange, value, handleQuery ,handleFilter}) => {
                     <Tab value="all" label="All Post" onClick={() => handleQuery('')} />
                     <Tab value="my" label="My Post" onClick={() => handleQuery(`author=${user._id}`)} />
                     <Tab value="admin" label="Admin" onClick={() => handleQuery('adminPost=true')} />
-                    {user.isAdmin && <Tab value="not" label="Not reply(15)" onClick={() => handleQuery('adminReplied=false&&adminPost=false')} />}
+                    {user.isAdmin && <Tab value="not" label={`Not reply(${notReply.length})`} onClick={() => handleQuery('adminReplied=false&&adminPost=false')} />}
                     {user.isAdmin && <Tab value="unresolved" label="Unresolved" onClick={() => handleQuery('status=unresolved')} />
                     }
                 </Tabs>

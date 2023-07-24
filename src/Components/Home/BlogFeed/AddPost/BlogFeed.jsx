@@ -7,21 +7,15 @@ import useAxios from '../../../../hooks/useAxios';
 import PostTab from '../PostTab/PostTab';
 import Loading from '../../../Shared/Loading';
 import { Paper, Typography } from '@mui/material';
+import useBlogs from '../../../../hooks/useBlogs';
 
 const BlogFeed = () => {
     const { user, loading } = useContext(AuthContext);
     const [value, setValue] = React.useState('all');
     const [query, setQuery] = React.useState('');
-    const [filter, setFilter] = React.useState('')
-    const [batch, setBatch] = React.useState(user.batch || localStorage.getItem('batch') || '')
-
-
-    const route1 = `post?batch=${batch}&${query}${filter ? '&' + filter : ''}`
-    const route2 = `post?${query}&${filter}`
-
-
-    const { data: blogs = [], loading: blogLoading, error, refetch } = useAxios('get', user?.isAdmin ? route2 : route1, value);
-
+    const [filter, setFilter] = React.useState('') 
+  
+    const {blogs,blogsRefetch}=useBlogs(query,filter)
 
     const handleChange = (e, newValue) => {
         setFilter('')
@@ -40,11 +34,11 @@ const BlogFeed = () => {
         <>
             {
                 user?.email && <>
-                    <CreatePost user={user} blogRefetch={refetch} />
+                    <CreatePost user={user} blogRefetch={blogsRefetch} />
                     <PostTab handleChange={handleChange} value={value} handleQuery={setQuery} handleFilter={setFilter} />
                 </>
             }
-            {blogs?.length ? <Blogs blogs={blogs} loading={loading} blogRefetch={refetch} />
+            {blogs?.length ? <Blogs blogs={blogs} loading={loading} blogRefetch={blogsRefetch} />
                 :
                 <Paper sx={{
                     p: 2,
