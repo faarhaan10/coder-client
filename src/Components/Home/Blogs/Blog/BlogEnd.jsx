@@ -6,9 +6,11 @@ import axios from 'axios';
 import Comments from '../Comments/Comments';
 import useAxios from '../../../../hooks/useAxios';
 import Likes from '../Comments/Likes';
+import { toast } from 'react-hot-toast';
 
-const BlogEnd = ({ blog ,blogRefetch}) => {
-    const { user } = useContext(AuthContext);
+const BlogEnd = ({ blog, blogRefetch }) => {
+
+    const { user, url } = useContext(AuthContext);
     const [comment, setComment] = useState('');
     const [comments, setComments] = useState(blog.comments);
 
@@ -19,13 +21,18 @@ const BlogEnd = ({ blog ,blogRefetch}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!user.email) {
+            toast.error('Please login first');
+            return;
+        }
         const doc = {
             user: user._id,
             post: blog._id,
             commentBody: comment
         }
         setComment('');
-        axios.post('http://localhost:3000/api/comment', doc)
+        axios.post(`${url}/comment`, doc)
             .then(res => {
                 setComment('');
                 if (res.data.success) {
@@ -41,11 +48,11 @@ const BlogEnd = ({ blog ,blogRefetch}) => {
                 {/* <Typography variant="body1" gutterBottom> 
                 <Stack variant='row' sx={{ justifyContent: 'space-around' }}>*/}
                 <Likes blog={blog} />
-                    <Button variant='text' sx={{ width: '50%' }}><MessageOutlinedIcon sx={{ mr: 1 }} />{allComments?.length ? blog.comments?.length + '+' : '0'} Comments </Button>
+                <Button variant='text' sx={{ width: '50%' }}><MessageOutlinedIcon sx={{ mr: 1 }} />{allComments?.length ? blog.comments?.length + '+' : '0'} Comments </Button>
                 {/*  </Stack>
                </Typography> */}
                 <hr />
-                <Stack direction='row' spacing={2} sx={{ my: 1 }} as={'form'} onSubmit={handleSubmit}>
+                {blog.isComment ? <Stack direction='row' spacing={2} sx={{ my: 1 }} as={'form'} onSubmit={handleSubmit}>
                     <Avatar alt={user?.name} src={user?.image} size='small' sx={{ border: '1px solid limegreen', width: 28, height: 28 }} />
                     <TextField
                         placeholder="Whats on your mind?"
@@ -57,9 +64,13 @@ const BlogEnd = ({ blog ,blogRefetch}) => {
                         sx={{ background: '#ddd' }}
                     />
                     <Button variant='text' type='submit' size='small'>Comment</Button>
-                </Stack>
+                </Stack> :
+                    <Typography variant='subtitle2'>Comments turned off by user</Typography>
+                }
 
-                <Comments comments={allComments} refetchComment={refetch} />
+                {
+                    blog.isComment && <Comments comments={allComments} refetchComment={refetch} />
+                }
 
             </Box>
         </>

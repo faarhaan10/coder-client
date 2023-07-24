@@ -20,7 +20,7 @@ const settings = ['Profile', 'Dashboard'];
 
 function NavBar() {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { user,logOut } = React.useContext(AuthContext);
+    const { user, logOut } = React.useContext(AuthContext);
 
 
     const handleOpenUserMenu = (event) => {
@@ -31,25 +31,25 @@ function NavBar() {
     };
 
     return (
-        <AppBar position="static"  sx={{px:2,pt:1,position:'fixed',zIndex:999}}>
+        <AppBar position="static" sx={{ px: 2, position: 'fixed', zIndex: 999 }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-            <Link to='/' style={{ textDecoration: 'none',color:'white' }}>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        sx={{
-                            mr: 2,
-                            display: 'flex',
-                            fontWeight: 800,
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        P.H. Forum
-                        
-                    </Typography>
+                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            sx={{
+                                mr: 2,
+                                display: 'flex',
+                                fontWeight: 800,
+                                color: 'inherit',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            P.H. Forum
+
+                        </Typography>
                     </Link>
 
                     <Box sx={{ flexGrow: 1, display: 'flex' }}>
@@ -82,7 +82,7 @@ function NavBar() {
                     />
 
                     {!user?.email ? <Box sx={{ flexGrow: 0 }}>
-                    <Link to='/login' style={{ textDecoration: 'none' }}>
+                        <Link to='/login' style={{ textDecoration: 'none' }}>
                             <Button
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
@@ -91,38 +91,38 @@ function NavBar() {
                         </Link>
                     </Box>
                         :
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
-                                <Avatar alt={user.name} src={user.image} />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                        <Box sx={{ flexGrow: 0 }}>
+                            <Tooltip title="Open settings">
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 1 }}>
+                                    <Avatar alt={user.name} src={user.image} />
+                                </IconButton>
+                            </Tooltip>
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                {settings.map((setting) => (
+                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                        <Typography textAlign="center">{setting}</Typography>
+                                    </MenuItem>
+                                ))}
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center" onClick={() => logOut()}>Logout</Typography>
                                 </MenuItem>
-                            ))}
-                                <MenuItem  onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center" onClick={()=>logOut()}>Logout</Typography>
-                                </MenuItem>
-                        </Menu>
-                    </Box>}
+                            </Menu>
+                        </Box>}
                 </Toolbar>
             </Container>
         </AppBar>

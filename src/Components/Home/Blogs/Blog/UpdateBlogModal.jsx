@@ -22,7 +22,7 @@ const style = {
 };
 
 
-const UpdateModal = ({ blog ,blogRefetch}) => {
+const UpdateBlogModal = ({ blog ,blogRefetch}) => {
     const{user,url}=React.useContext(AuthContext)
     const [status, setStatus] = React.useState('new')
     const [priority, setPriority] = React.useState('high')
@@ -51,7 +51,7 @@ const UpdateModal = ({ blog ,blogRefetch}) => {
 
     return (
         <>
-            <Chip label={blog?.status} onClick={handleOpen} color="primary" size="small" variant="outlined" sx={{ py: .3 }} />
+            <MenuItem onClick={handleOpen}>Status Update</MenuItem>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -111,4 +111,4 @@ const UpdateModal = ({ blog ,blogRefetch}) => {
     );
 };
 
-export default UpdateModal;
+export default UpdateBlogModal;

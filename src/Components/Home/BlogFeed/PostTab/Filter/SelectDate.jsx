@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import * as locales from 'react-date-range/dist/locale'; 
+import * as locales from 'react-date-range/dist/locale';
 import { Calendar } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css';
@@ -22,22 +22,22 @@ const style = {
 };
 
 
-const SelectDate = ({handleClose, setFilter ,handleQuery}) => {
+const SelectDate = ({ handleClose, setFilter, handleQuery }) => {
     const [date, setDate] = React.useState(new Date(Date.now()));
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     // const handleClose = () => setOpen(false);
 
-    
+
     return (
         <>
             <MenuItem
-                onClick={()=>handleOpen()}
+                onClick={() => handleOpen()}
                 sx={{ py: 0, my: 0 }}
-             >By Date</MenuItem>
+            >By Date</MenuItem>
             <Modal
                 open={open}
-                onClose={handleClose} 
+                onClose={handleClose}
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -45,7 +45,7 @@ const SelectDate = ({handleClose, setFilter ,handleQuery}) => {
                     </Typography>
                     <Box style={{ display: 'flex', flexFlow: 'column nowrap' }}>
 
-                        <Calendar onChange={item => { handleQuery(`timestamp=${item}`); handleClose(); setFilter('date')}}
+                        <Calendar onChange={item => { handleQuery(`timestamp=${item}`); handleClose(); setFilter('date') }}
                             locale={locales['enUS']} date={date} />
                     </Box>
                 </Box>

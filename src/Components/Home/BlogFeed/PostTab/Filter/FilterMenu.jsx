@@ -6,12 +6,15 @@ import SelectDays from './SelectDays';
 import SelectStatus from './SelectStatus';
 import SelectBatch from './SelectBatch';
 import SelectCategory from './SelectCategory';
+import AddTags from '../../AddPost/AddTags';
+import SelectTags from './SelectTags';
 // import AddTags from '../../AddPost/AddTags';
 
 
 
 const FilterMenu = ({handleQuery}) => {
     const [filter, setFilter] = React.useState('filter') 
+    
    
 
 
@@ -41,7 +44,7 @@ const FilterMenu = ({handleQuery}) => {
                 }}
 
             >
-                {/* <AddTags setTags={setTags} label='By Tags' /> */}
+                <SelectTags    handleQuery={handleQuery} handleClose={handleClose} setFilter={setFilter}/>
 
                 <SelectDate   handleQuery={handleQuery} handleClose={handleClose} setFilter={setFilter} />
                 <SelectDays   handleQuery={handleQuery} handleClose={handleClose} setFilter={setFilter} />

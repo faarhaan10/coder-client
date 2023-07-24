@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const url = 'http://localhost:3000/api'
+    // const url = 'https://ph-forum-server.vercel.app/api'
 
     //login
     const login = (doc) => {

@@ -8,8 +8,11 @@ const useAxios = (method, route, doc = {},reload=null) => {
   const [error, setError] = useState(null);
   const accessToken = localStorage.getItem('token');
 
+  const server = 'http://localhost:3000/api'
+  // const server = 'https://ph-forum-server.vercel.app/api'
+
   const config = {
-    url: `http://localhost:3000/api/${route}`,
+    url: `${server}/${route}`,
     method,
     headers: {
       Authorization: `Bearer ${accessToken}`,
