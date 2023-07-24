@@ -153,7 +153,7 @@ const Listbox = styled('ul')(
 `,
 );
 
-export default function AddTags({setTags,label}) {
+export default function AddTags({setTags,label,tags}) {
     const {
         getRootProps,
         getInputProps,
@@ -171,7 +171,9 @@ export default function AddTags({setTags,label}) {
         getOptionLabel: (option) => option,
     });
     // console.log(value);
+  React.useEffect(() => {
     setTags(value);
+    },[value])
 
     return (
         <>

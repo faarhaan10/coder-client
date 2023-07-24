@@ -7,18 +7,18 @@ import Comments from '../Comments/Comments';
 import useAxios from '../../../../hooks/useAxios';
 import Likes from '../Comments/Likes';
 import { toast } from 'react-hot-toast';
+import useComments from '../../../../hooks/useComments';
 
-const BlogEnd = ({ blog, blogRefetch }) => {
+const BlogEnd = ({ blog }) => {
 
     const { user, url } = useContext(AuthContext);
-    const [comment, setComment] = useState('');
-    const [comments, setComments] = useState(blog.comments);
+    const [comment, setComment] = useState(''); 
+    
+    // const { comments,refetch }=useComments({ commentIds: blog.comments });
+    const { data: comments = [], refetch } = useAxios('post', 'comment/ids', { commentIds: blog.comments })
+    console.log(comments);
 
-
-    const { data: allComments = [], refetch } = useAxios('post', 'comment/ids', { commentIds: comments });
-
-
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -34,23 +34,19 @@ const BlogEnd = ({ blog, blogRefetch }) => {
         setComment('');
         axios.post(`${url}/comment`, doc)
             .then(res => {
-                setComment('');
+                setComment(''); 
                 if (res.data.success) {
-                    setComments([...comments, res.data.comment._id]);
                     refetch();
                 }
             })
-    }
-
+    } 
     return (
         <>
             <Box>
-                {/* <Typography variant="body1" gutterBottom> 
-                <Stack variant='row' sx={{ justifyContent: 'space-around' }}>*/}
                 <Likes blog={blog} />
-                <Button variant='text' sx={{ width: '50%' }}><MessageOutlinedIcon sx={{ mr: 1 }} />{allComments?.length ? blog.comments?.length + '+' : '0'} Comments </Button>
-                {/*  </Stack>
-               </Typography> */}
+                <Button variant='text' sx={{ width: '50%' }}><MessageOutlinedIcon sx={{ mr: 1 }} />{comments?.length ? blog.comments?.length + '+' : '0'} Comments </Button>
+              
+                
                 <hr />
                 {blog.isComment ? <Stack direction='row' spacing={2} sx={{ my: 1 }} as={'form'} onSubmit={handleSubmit}>
                     <Avatar alt={user?.name} src={user?.image} size='small' sx={{ border: '1px solid limegreen', width: 28, height: 28 }} />
@@ -69,7 +65,7 @@ const BlogEnd = ({ blog, blogRefetch }) => {
                 }
 
                 {
-                    blog.isComment && <Comments comments={allComments} refetchComment={refetch} />
+                    blog.isComment && <Comments comments={comments} refetchComment={refetch} />
                 }
 
             </Box>

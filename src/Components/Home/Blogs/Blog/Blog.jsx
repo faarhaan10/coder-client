@@ -4,7 +4,7 @@ import BlogBody from './BlogBody';
 import BlogEnd from './BlogEnd';
 import { Paper } from '@mui/material'; 
 
-const Blog = ({blog,blogRefetch}) => {
+const Blog = ({blog}) => {
 
     return (
         <Paper sx={{ p: 2,mb:2 }}>
@@ -17,7 +17,7 @@ const Blog = ({blog,blogRefetch}) => {
             <BlogBody blog={blog}/>
 
             {/* card footer  */}
-            <BlogEnd blog={blog} blogRefetch={ blogRefetch} />
+            <BlogEnd blog={blog}  />
         </Paper>
     );
 };

@@ -23,7 +23,7 @@ const CreatePost = ({ blogRefetch }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+        setPostBody('')
         if (!category || !tags) {
             toast.error('Please add some tags & category');
             return
@@ -39,6 +39,7 @@ const CreatePost = ({ blogRefetch }) => {
         if (user.isAdmin) {
             doc.adminPost = true;
         }
+        console.log(doc);
 
         axios.post(`${url}/post`, doc)
             .then(res => {

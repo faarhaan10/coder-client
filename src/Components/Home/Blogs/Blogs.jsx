@@ -2,13 +2,13 @@ import Blog from './Blog/Blog';
 
 
 
-const Blogs = ({blogs,blogRefetch}) => { 
+const Blogs = ({blogs}) => { 
       
     return (
         <>
 
             {
-                blogs?.map(blog => <Blog key={blog._id} blog={blog} blogRefetch={ blogRefetch} />)
+                blogs?.map(blog => <Blog key={blog._id} blog={blog}  />)
             }
 
 

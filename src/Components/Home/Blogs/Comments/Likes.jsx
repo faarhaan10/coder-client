@@ -3,9 +3,11 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../../context/AuthProvider';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import useBlogs from '../../../../hooks/useBlogs';
 
 const Likes = ({ blog }) => {
     const { user, url } = useContext(AuthContext);
+    const {blogsRefetch}=useBlogs()
     const [likes, setLikes] = useState([...blog.upvotes])
     const liked = likes.includes(user._id);
 
@@ -16,17 +18,18 @@ const Likes = ({ blog }) => {
             return;
         }
 
-        axios.put(`${url}/post/like/${blog._id}`, { userId: user._id })
+        axios.post(`${url}/post/like/${blog._id}`, { userId: user._id })
             .then(res => {
                 if (res.data.success) {
                     toast.success('Like updated');
                     if (liked) {
                         const rest = likes.filter(item => item !== user._id);
-                        setLikes(rest)
+                        setLikes(rest);
+                        blogsRefetch()
                     }
-                    else {
-                        setLikes([...likes, user._id])
-                    }
+                }
+                else {
+                    toast.error(res.data.message)
                 }
 
             })

@@ -6,33 +6,35 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import UpdateBlogModal from './UpdateBlogModal';
 import axios from 'axios';
 import { AuthContext } from '../../../../context/AuthProvider';
-import { toast } from 'react-hot-toast'; 
+import { toast } from 'react-hot-toast';
 import useBlogs from '../../../../hooks/useBlogs';
+import useProgress from '../../../../hooks/useProgress';
 
 
 
 export default function BlogOptions({ blog }) {
     const { user, url } = React.useContext(AuthContext)
-const {blogsRefetch} =useBlogs()
+    const { blogsRefetch } = useBlogs()
+    const { progressRefetch } = useProgress();
 
 
-    const [anchorEl, setAnchorEl] = React.useState(null); 
+    const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+        blogsRefetch();
+        progressRefetch();
     };
 
 
     const handleDelete = () => {
         axios.delete(`${url}/post/${blog._id}`)
             .then(res => {
-                console.log(res);
                 if (res.data.success) {
-                    toast.success('Post deleted')
-                    blogsRefetch();
+                    toast.success('Post deleted');
                     handleClose()
                 }
             })
@@ -40,9 +42,8 @@ const {blogsRefetch} =useBlogs()
     const handleOffComment = () => {
         axios.put(`${url}/post/${blog._id}`, { isComment: false })
             .then(res => {
-                if (res.data.success) {
+                if (res.data.success) { 
                     toast.success('Comment off')
-                    blogsRefetch();
                     handleClose()
                 }
             })
@@ -51,8 +52,7 @@ const {blogsRefetch} =useBlogs()
         axios.put(`${url}/post/${blog._id}`, { status: 'resolved' })
             .then(res => {
                 if (res.data.success) {
-                    toast.success('Resolved')
-                    blogsRefetch(); 
+                    toast.success('Resolved') 
                     handleClose();
                 }
             })
@@ -92,7 +92,7 @@ const {blogsRefetch} =useBlogs()
             >
                 {user.email && <div>
                     {user.isAdmin && <div>
-                        <UpdateBlogModal handleClose={ handleClose} blogRefetch={blogsRefetch} blog={blog} />
+                        <UpdateBlogModal handleClose={handleClose} blogRefetch={blogsRefetch} blog={blog} />
                         <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     </div>
                     }
@@ -104,7 +104,7 @@ const {blogsRefetch} =useBlogs()
                         </div>
                     }
                 </div>}
-                <MenuItem onClick={handleCopy}>Copy the link</MenuItem> 
+                <MenuItem onClick={handleCopy}>Copy the link</MenuItem>
             </Menu>
         </div>
     );

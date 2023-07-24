@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const Comments = ({ comments ,refetchComment}) => {
     const { user, url } = useContext(AuthContext);
-
+    
     const handleDelete = (id) => {
         axios.delete(`${url}/comment/${id}`)
             .then(res => {

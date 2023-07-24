@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import ImageUploader from '../Shared/ImageUploader';
 import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const Register = () => {
     const [batch, setBatch] = React.useState(8);
@@ -27,8 +28,12 @@ const Register = () => {
                     setToken(res.data.token);
                     navigate('/')
                 }
+                else {
+                    toast.error(res.data.message)
+                }
 
             })
+        
     };
 
     const handleChange = (event) => {

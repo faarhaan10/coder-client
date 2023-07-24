@@ -1,12 +1,13 @@
 import { Paper, Typography } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import Issue from './Issue';
 import MyIssues from './MyIssues';
 import useAxios from '../../../hooks/useAxios';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const Issues = () => {
-
-    const { data:issues=[], loading } = useAxios('get', 'post/trending');
+const {user}=useContext(AuthContext)
+    const { data: issues = [] } = useAxios('get', 'post/trending');
      return (
         <>
             <Paper sx={{ p: 2.5 }}>
@@ -20,7 +21,7 @@ const Issues = () => {
             </Paper>
             <Paper sx={{ p: 2.5, mt:2 }}>
                 <Typography variant='h6'>
-                    My Progress
+                    {(!user.isAdmin&&user.email)?'My':'Overall'} Progress
                 </Typography>
                 <hr />
                 <MyIssues/>

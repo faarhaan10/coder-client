@@ -6,7 +6,7 @@ import Blogs from '../../Blogs/Blogs';
 import useAxios from '../../../../hooks/useAxios';
 import PostTab from '../PostTab/PostTab';
 import Loading from '../../../Shared/Loading';
-import { Paper, Typography } from '@mui/material';
+import { Box, CircularProgress, Paper, Typography } from '@mui/material';
 import useBlogs from '../../../../hooks/useBlogs';
 
 const BlogFeed = () => {
@@ -15,20 +15,13 @@ const BlogFeed = () => {
     const [query, setQuery] = React.useState('');
     const [filter, setFilter] = React.useState('') 
   
-    const {blogs,blogsRefetch}=useBlogs(query,filter)
-
+    const { blogs, blogsRefetch,blogsLoading } = useBlogs(query, filter);
     const handleChange = (e, newValue) => {
         setFilter('')
-        setValue(newValue);
+        setValue(newValue); 
     };
 
-
-
-
     if (loading) return <Loading />
-
-
-
 
     return (
         <>
@@ -38,9 +31,13 @@ const BlogFeed = () => {
                     <PostTab handleChange={handleChange} value={value} handleQuery={setQuery} handleFilter={setFilter} />
                 </>
             }
-            {blogs?.length ? <Blogs blogs={blogs} loading={loading} blogRefetch={blogsRefetch} />
-                :
-                <Paper sx={{
+            {
+               blogsLoading&& <Box sx={{height:200, display: 'flex',justifyContent:'center',alignItems:'center' }}>
+                    <CircularProgress />
+                    </Box>
+            }
+            <Blogs blogs={blogs} loading={loading}/>
+            {!blogs?.length && <Paper sx={{
                     p: 2,
                     mb: 2,
                     height: 300,
@@ -54,6 +51,7 @@ const BlogFeed = () => {
 
                 </Paper>
             }
+            
         </>
     );
 };
